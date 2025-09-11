@@ -1,35 +1,39 @@
-
-
+// Loading Componets
 async function loadComponents() {
     try {
-        // Load header and footer in parallel
-        const [headerResponse, footerResponse] = await Promise.allSettled([
-            fetch('components/header.html') || fetch('../components/header.html'),
-            fetch('../components/footer.html') || fetch('components/footer.html')
-        ]);
-        
-        // Process header
-        if (headerResponse.status === 'fulfilled' && headerResponse.value.ok) {
-            document.getElementById('header-container').innerHTML = 
-                await headerResponse.value.text();
-        } else {
-            console.error('Header not found');
-            document.getElementById('header-container').innerHTML = 
-                '<div>Header failed to load</div>';
+        let headerHTML = '';
+        try {
+            const resp = await fetch('./components/header.html');
+            if (resp.ok) {
+                headerHTML = await resp.text();
+            } else {
+                const fallbackResp = await fetch('../components/header.html');
+                headerHTML = await fallbackResp.text();
+            }
+        } catch (err) {
+            console.error('Header not found in either location');
         }
-        
-        // Process footer
-        if (footerResponse.status === 'fulfilled' && footerResponse.value.ok) {
-            document.getElementById('footer-container').innerHTML = 
-                await footerResponse.value.text();
-        } else {
-            console.error('Footer not found');
-            document.getElementById('footer-container').innerHTML = 
-                '<div>Footer failed to load</div>';
+        document.getElementById('header-container').innerHTML = headerHTML;
+
+        // Loading Footer ...
+        let footerHTML = '';
+        try {
+            const resp = await fetch('./components/footer.html');
+            if (resp.ok) {
+                footerHTML = await resp.text();
+            } else {
+                const fallbackResp = await fetch('../components/footer.html');
+                footerHTML = await fallbackResp.text();
+            }
+        } catch (err) {
+            console.error('Footer not found in either location');
         }
+        document.getElementById('footer-container').innerHTML = footerHTML;
+
     } catch (error) {
-        console.error("Loading components failed:", error);
+        console.error("[ERROR] Loading components failed:", error);
     }
+
 }
 
 
