@@ -4,7 +4,7 @@ async function loadComponents() {
     try {
         // Load header and footer in parallel
         const [headerResponse, footerResponse] = await Promise.allSettled([
-            fetch('../components/header.html') || fetch('components/header.html'),
+            fetch('components/header.html') || fetch('../components/header.html'),
             fetch('../components/footer.html') || fetch('components/footer.html')
         ]);
         
