@@ -44,36 +44,68 @@
 
 
 // Loading Components
-async function loadComponents() {
-    // Load Header
-    let headerHTML = '';
-    const headerResp1 = await fetch('components/header.html').catch(() => null);
-    if (headerResp1 && headerResp1.ok) {
-        headerHTML = await headerResp1.text();
-    } else {
-        const headerResp2 = await fetch('../components/header.html').catch(() => null);
-        if (headerResp2 && headerResp2.ok) {
-            headerHTML = await headerResp2.text();
-        } else {
-            console.error('Header not found in both locations');
-        }
-    }
-    document.getElementById('header-container').innerHTML = headerHTML;
+// async function loadComponents() {
+//     let headerHTML = '';
+//     const headerResp1 = await fetch('components/header.html').catch(() => null);
+//     if (headerResp1 && headerResp1.ok) {
+//         headerHTML = await headerResp1.text();
+//     } else {
+//         const headerResp2 = await fetch('../components/header.html').catch(() => null);
+//         if (headerResp2 && headerResp2.ok) {
+//             headerHTML = await headerResp2.text();
+//         } else {
+//             console.error('Header not found in both locations');
+//         }
+//     }
+//     document.getElementById('header-container').innerHTML = headerHTML;
 
-    // Load Footer
-    let footerHTML = '';
-    const footerResp1 = await fetch('./components/footer.html').catch(() => null);
-    if (footerResp1 && footerResp1.ok) {
-        footerHTML = await footerResp1.text();
-    } else {
-        const footerResp2 = await fetch('../components/footer.html').catch(() => null);
-        if (footerResp2 && footerResp2.ok) {
-            footerHTML = await footerResp2.text();
+//     let footerHTML = '';
+//     const footerResp1 = await fetch('./components/footer.html').catch(() => null);
+//     if (footerResp1 && footerResp1.ok) {
+//         footerHTML = await footerResp1.text();
+//     } else {
+//         const footerResp2 = await fetch('../components/footer.html').catch(() => null);
+//         if (footerResp2 && footerResp2.ok) {
+//             footerHTML = await footerResp2.text();
+//         } else {
+//             console.error('Footer not found in both locations');
+//         }
+//     }
+//     document.getElementById('footer-container').innerHTML = footerHTML;
+// }
+
+// document.addEventListener('DOMContentLoaded', () => {
+//     loadComponents();
+// });
+
+
+// Loading Components
+async function loadComponents() {
+    // Load Header - just one path needed now
+    try {
+        const headerResp = await fetch('components/header.html');
+        if (headerResp.ok) {
+            const headerHTML = await headerResp.text();
+            document.getElementById('header-container').innerHTML = headerHTML;
         } else {
-            console.error('Footer not found in both locations');
+            console.error('Header not found');
         }
+    } catch (err) {
+        console.error('Failed to load header');
     }
-    document.getElementById('footer-container').innerHTML = footerHTML;
+
+    // Load Footer - just one path needed now
+    try {
+        const footerResp = await fetch('components/footer.html');
+        if (footerResp.ok) {
+            const footerHTML = await footerResp.text();
+            document.getElementById('footer-container').innerHTML = footerHTML;
+        } else {
+            console.error('Footer not found');
+        }
+    } catch (err) {
+        console.error('Failed to load footer');
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
