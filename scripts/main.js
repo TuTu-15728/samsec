@@ -78,29 +78,35 @@
 //     loadComponents();
 // });
 
-
 // Loading Components
 async function loadComponents() {
-    const isLocal = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
-    // Load Header - just one path needed now
+    const isLocal = window.location.hostname === '127.0.0.1' || 
+                   window.location.hostname === 'localhost';
+    
+    // For local: add /samsec prefix, for GitHub: use normal paths
+    const prefix = isLocal ? '/samsec/' : '';
+    
+    // Load Header
     try {
-        const path = isLocal ? '/samsec/components/header.html' : 'components/header.html';
-        const headerResp = await fetch(path);
+        const headerResp = await fetch(`${prefix}components/header.html`);
         if (headerResp.ok) {
             const headerHTML = await headerResp.text();
             document.getElementById('header-container').innerHTML = headerHTML;
+        } else {
+            console.error('Header not found');
         }
     } catch (err) {
         console.error('Failed to load header');
     }
 
-    // Load Footer - just one path needed now
+    // Load Footer
     try {
-        const path = isLocal ? '/samsec/components/footer.html' : 'components/footer.html';
-        const footerResp = await fetch(path);
+        const footerResp = await fetch(`${prefix}components/footer.html`);
         if (footerResp.ok) {
             const footerHTML = await footerResp.text();
             document.getElementById('footer-container').innerHTML = footerHTML;
+        } else {
+            console.error('Footer not found');
         }
     } catch (err) {
         console.error('Failed to load footer');
