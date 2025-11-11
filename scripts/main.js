@@ -51,7 +51,7 @@ async function loadComponents() {
     if (headerResp1 && headerResp1.ok) {
         headerHTML = await headerResp1.text();
     } else {
-        const headerResp2 = await fetch('components/header.html').catch(() => null);
+        const headerResp2 = await fetch('../components/header.html').catch(() => null);
         if (headerResp2 && headerResp2.ok) {
             headerHTML = await headerResp2.text();
         } else {
