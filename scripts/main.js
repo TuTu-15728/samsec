@@ -80,15 +80,8 @@
 
 // Loading Components
 async function loadComponents() {
-    const isLocal = window.location.hostname === '127.0.0.1' || 
-                   window.location.hostname === 'localhost';
-    
-    // For local: add /samsec prefix, for GitHub: use normal paths
-    const prefix = isLocal ? '/samsec/' : '';
-    
-    // Load Header
     try {
-        const headerResp = await fetch(`${prefix}components/header.html`);
+        const headerResp = await fetch(`components/header.html`);
         if (headerResp.ok) {
             const headerHTML = await headerResp.text();
             document.getElementById('header-container').innerHTML = headerHTML;
@@ -101,7 +94,7 @@ async function loadComponents() {
 
     // Load Footer
     try {
-        const footerResp = await fetch(`${prefix}components/footer.html`);
+        const footerResp = await fetch(`components/footer.html`);
         if (footerResp.ok) {
             const footerHTML = await footerResp.text();
             document.getElementById('footer-container').innerHTML = footerHTML;
