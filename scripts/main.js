@@ -81,14 +81,14 @@
 
 // Loading Components
 async function loadComponents() {
+    const isLocal = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
     // Load Header - just one path needed now
     try {
-        const headerResp = await fetch('components/header.html');
+        const path = isLocal ? '/samsec/components/header.html' : 'components/header.html';
+        const headerResp = await fetch(path);
         if (headerResp.ok) {
             const headerHTML = await headerResp.text();
             document.getElementById('header-container').innerHTML = headerHTML;
-        } else {
-            console.error('Header not found');
         }
     } catch (err) {
         console.error('Failed to load header');
@@ -96,12 +96,11 @@ async function loadComponents() {
 
     // Load Footer - just one path needed now
     try {
-        const footerResp = await fetch('components/footer.html');
+        const path = isLocal ? '/samsec/components/footer.html' : 'components/footer.html';
+        const footerResp = await fetch(path);
         if (footerResp.ok) {
             const footerHTML = await footerResp.text();
             document.getElementById('footer-container').innerHTML = footerHTML;
-        } else {
-            console.error('Footer not found');
         }
     } catch (err) {
         console.error('Failed to load footer');
