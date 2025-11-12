@@ -34,11 +34,8 @@
     <script src="scripts/main.js"></script>
     <script>
         // Dynamically set the base href for production (GitHub Pages) and local development
-        if (location.hostname === '127.0.0.1' || location.hostname === 'localhost') {
-            document.querySelector('base').setAttribute('href', '/');
-        } else {
-            document.querySelector('base').setAttribute('href', '/samsec/');
-        }
+        const pathPrefix = location.hostname === '127.0.0.1' || location.hostname === 'localhost' ? '' : '/samsec/';
+        document.querySelector('base').setAttribute('href', pathPrefix);
     </script>
 </body>
 </html>
