@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <base href="/samsec/">
+    <script>
+        if (location.hostname === '127.0.0.1' || location.hostname === 'localhost') {
+            document.querySelector('base').setAttribute('href', '/');
+        }
+    </script>
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/unique/writeups.css">
     <link rel="stylesheet" href="styles/shared/header.css">
