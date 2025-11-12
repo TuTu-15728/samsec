@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <base href="/">
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/unique/home.css">
     <link rel="stylesheet" href="styles/shared/header.css">
@@ -21,21 +20,11 @@
         </div>
 
     </main>
-    
-    <!-- <div class="main">
-        
-        <a href="pages/page1.html">Go to Other Page...</a>
-    </div> -->
 
     <!-- Footer Placeholder -->
     <div id="footer-container"></div>
 
     <!-- Main JS -->
     <script src="scripts/main.js"></script>
-    <script>
-        // Dynamically set the base href for production (GitHub Pages) and local development
-        const pathPrefix = location.hostname === '127.0.0.1' || location.hostname === 'localhost' ? '' : '/samsec/';
-        document.querySelector('base').setAttribute('href', pathPrefix);
-    </script>
 </body>
 </html>
