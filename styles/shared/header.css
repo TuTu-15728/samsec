@@ -3,8 +3,8 @@
 .header-wrapper {
     width: 100%;
     z-index: 1000;
-    /* background: white !important; */
-    background: #2a2a2a !important;
+    background: white !important;
+    /* background: #2a2a2a !important; */
     position: fixed;
     display: flex;
     box-shadow: 0 4px 6px #25000023;
