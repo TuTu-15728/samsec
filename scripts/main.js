@@ -109,9 +109,8 @@
 // document.addEventListener('DOMContentLoaded', () => {
 //     loadComponents();
 // });
-
 async function loadComponents() {
-    const pathPrefix = location.pathname.includes('/pages/') ? '../' : '';
+    const pathPrefix = location.hostname === '127.0.0.1' || location.hostname === 'localhost' ? '' : '/samsec/';
 
     try {
         const headerResp = await fetch(`${pathPrefix}components/header.html`);
