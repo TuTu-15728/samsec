@@ -1,17 +1,25 @@
-// Load config first, then components
+// scripts/main.js
 async function loadComponents() {
-    const isInPages = window.location.pathname.includes('/pages/');
-    const basePath = isInPages ? '../' : './';
-    
     try {
-        const headerResp = await fetch(`${basePath}components/header.html`);
+        // Always use absolute path for components
+        const headerPath = SITE_CONFIG.isGitHub ? 
+            `${SITE_CONFIG.basePath}components/header.html` : 
+            '/components/header.html';
+            
+        const headerResp = await fetch(headerPath);
         if (headerResp.ok) {
             let headerHTML = await headerResp.text();
             
-            // Use the config for clean path handling
+            // Fix ALL paths in header for GitHub Pages
             if (SITE_CONFIG.isGitHub) {
-                // Simple replacement using config
-                headerHTML = headerHTML.replace(/(href|src)="\.\.\/([^"]*)"/g, `$1="${SITE_CONFIG.basePath}$2"`);
+                headerHTML = headerHTML.replace(/(href|src)="([^"]*)"/g, (match, attr, path) => {
+                    // Don't modify external URLs
+                    if (path.startsWith('http')) return match;
+                    // Don't modify absolute paths that are already correct
+                    if (path.startsWith('/')) return match;
+                    // Prepend basePath to all relative paths
+                    return `${attr}="${SITE_CONFIG.basePath}${path}"`;
+                });
             }
             
             document.getElementById('header-container').innerHTML = headerHTML;

@@ -49,6 +49,12 @@
             "difficulty": "easy"
         },
         {
+            "title": "MrRobot",
+            "url": "writeups/thm/mrrobot.html",
+            "platform": "thm",
+            "difficulty": "easy"
+        },
+        {
             "title": "Challenge_1",
             "url": "machines/py_Challenge-1.html",
             "platform": "pyChallenge"
