@@ -78,10 +78,43 @@
 //     loadComponents();
 // });
 
+
 // Loading Components
+// async function loadComponents() {
+//     try {
+//         const headerResp = await fetch(`components/header.html`);
+//         if (headerResp.ok) {
+//             const headerHTML = await headerResp.text();
+//             document.getElementById('header-container').innerHTML = headerHTML;
+//         } else {
+//             console.error('Header not found');
+//         }
+//     } catch (err) {
+//         console.error('Failed to load header');
+//     }
+
+//     try {
+//         const footerResp = await fetch(`components/footer.html`);
+//         if (footerResp.ok) {
+//             const footerHTML = await footerResp.text();
+//             document.getElementById('footer-container').innerHTML = footerHTML;
+//         } else {
+//             console.error('Footer not found');
+//         }
+//     } catch (err) {
+//         console.error('Failed to load footer');
+//     }
+// }
+
+// document.addEventListener('DOMContentLoaded', () => {
+//     loadComponents();
+// });
+
 async function loadComponents() {
+    const pathPrefix = location.pathname.includes('/pages/') ? '../' : '';
+
     try {
-        const headerResp = await fetch(`components/header.html`);
+        const headerResp = await fetch(`${pathPrefix}components/header.html`);
         if (headerResp.ok) {
             const headerHTML = await headerResp.text();
             document.getElementById('header-container').innerHTML = headerHTML;
@@ -92,9 +125,8 @@ async function loadComponents() {
         console.error('Failed to load header');
     }
 
-    // Load Footer
     try {
-        const footerResp = await fetch(`components/footer.html`);
+        const footerResp = await fetch(`${pathPrefix}components/footer.html`);
         if (footerResp.ok) {
             const footerHTML = await footerResp.text();
             document.getElementById('footer-container').innerHTML = footerHTML;
