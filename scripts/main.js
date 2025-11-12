@@ -33,6 +33,40 @@ async function loadComponents() {
     } catch (err) {
         console.error('Failed to load header:', err);
     }
+
+    try {
+        // For GitHub: use absolute path with repo name
+        // For Local: use relative path based on current location
+        let footerPath;
+        if (SITE_CONFIG.isGitHub) {
+            footerPath = `${SITE_CONFIG.basePath}components/footer.html`;
+        } else {
+            // Calculate relative path for local development
+            const pathSegments = window.location.pathname.split('/').filter(segment => segment);
+            const depth = pathSegments.length - 1;
+            footerPath = '../'.repeat(Math.max(0, depth)) + 'components/footer.html';
+        }
+        
+        const footerResp = await fetch(footerPath);
+        if (footerResp.ok) {
+            let footerHTML = await footerResp.text();
+            
+            // Process only INTERNAL paths in footer (not external URLs)
+            footerHTML = footerHTML.replace(/(href|src)="((?!http|https|#|mailto:)[^"]*)"/g, (match, attr, path) => {
+                if (SITE_CONFIG.isGitHub) {
+                    // GitHub: convert to absolute path with repo name
+                    return `${attr}="${SITE_CONFIG.basePath}${path}"`;
+                } else {
+                    // Local: convert to absolute paths
+                    return `${attr}="/${path}"`;
+                }
+            });
+            
+            document.getElementById('footer-container').innerHTML = footerHTML;
+        }
+    } catch (err) {
+        console.error('Failed to load footer:', err);
+    }
 }
 
 document.addEventListener('DOMContentLoaded', loadComponents);
