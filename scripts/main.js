@@ -1,34 +1,24 @@
 async function loadComponents() {
-    // Determine base path based on current page location
     const isInPages = window.location.pathname.includes('/pages/');
     const basePath = isInPages ? '../' : './';
     
     try {
         const headerResp = await fetch(`${basePath}components/header.html`);
         if (headerResp.ok) {
-            const headerHTML = await headerResp.text();
-            document.getElementById('header-container').innerHTML = headerHTML;
+            let headerHTML = await headerResp.text();
             
-            // Fix logo path after header loads
-            setTimeout(() => {
-                const logos = document.querySelectorAll('.logo img');
-                logos.forEach(logo => {
-                    if (window.location.hostname.includes('github.io')) {
-                        // GitHub Pages - use absolute path
-                        logo.src = '/samsec/assets/logo/modified_logo.png';
-                    } else {
-                        // Local server - use relative path
-                        logo.src = `${basePath}assets/logo/modified_logo.png`;
-                    }
-                });
-            }, 50);
-        } else {
-            console.error('Header not found');
+            // Only fix for GitHub Pages
+            if (window.location.hostname.includes('github.io')) {
+                headerHTML = headerHTML.replace('src="../assets/logo/modified_logo.png"', 'src="/samsec/assets/logo/modified_logo.png"');
+            }
+            
+            document.getElementById('header-container').innerHTML = headerHTML;
         }
     } catch (err) {
-        console.error('Failed to load header:', err);
+        console.error('Failed to load header');
     }
 }
+
 
 document.addEventListener('DOMContentLoaded', () => {
     loadComponents();
