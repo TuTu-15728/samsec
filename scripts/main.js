@@ -112,6 +112,7 @@
 async function loadComponents() {
     const pathPrefix = location.hostname === '127.0.0.1' || location.hostname === 'localhost' ? '' : '/samsec/';
 
+    // Dynamically load header and footer
     try {
         const headerResp = await fetch(`${pathPrefix}components/header.html`);
         if (headerResp.ok) {
@@ -135,6 +136,12 @@ async function loadComponents() {
     } catch (err) {
         console.error('Failed to load footer');
     }
+
+    // Dynamically load scripts for both environments
+    const script = document.createElement('script');
+    script.src = `${pathPrefix}scripts/main.js`; // Dynamically set script path
+    script.type = 'module';
+    document.body.appendChild(script);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
