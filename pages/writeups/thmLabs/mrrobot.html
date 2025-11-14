@@ -27,18 +27,18 @@
         <p id="roomLink" onclick="window.open('https://tryhackme.com/room/mrrobot', '_blank')">☍ Room Link - "https://tryhackme.com/room/mrrobot"</p>
         
         <blockquote>
-            <p>Hello fellow hackers, learners, and security enthusiasts! 💻</p>
+            <p>Hello fellow hackers, learners, and security enthusiasts! 💻</p><br>
             <p>Welcome to my corner of the internet where I document my path through the exciting world of penetration
                 testing and cybersecurity. Whether you're here to follow along, learn together, or just curious about
                 ethical hacking - I'm glad you stopped by!</p>
         </blockquote>
 
-        <h2>Introduction</h2>
-        <p>This writeup walks through the "Mr Robot CTF" challenge from TryHackMe. You'll follow a step-by-step journey
+        <h2>⚝ Introduction</h2>
+        <p>This writeup walks through the <strong>"Mr Robot CTF"</strong> challenge from <strong>TryHackMe</strong>. You'll follow a step-by-step journey
             from initial reconnaissance to full system compromise, including the real-world trial and errors encountered
-            along the way.</p>
+            along the way.</p><br>
 
-        <p>𖤐 In this guide, you'll learn:</p>
+        <p><strong>👉 In this guide, you'll learn :</strong></p>
         <ul>
             <li>Basic enumeration techniques using <strong>nmap</strong> and <strong>gobuster</strong></li>
             <li>Password brute-forcing with <strong>hydra</strong></li>
@@ -54,7 +54,7 @@
         <p>Can you root this Mr. Robot styled machine? This is a virtual machine meant for beginners/intermediate users.
             There are 3 hidden keys located on the machine, can you find them?</p>
 
-        <h2>Reconnaissance</h2>
+        <h2>⚝ Reconnaissance</h2>
         <p><strong>Nmap Scan Results : -</strong> </p>
         <p>First, I started with a basic nmap scan - </p>
         <pre><code class="shell">
@@ -185,7 +185,7 @@ Finished
             </li>
         </ul>
 
-        <h2>Exploitation</h2>
+        <h2>⚝ Exploitation</h2>
         <p>With numerous directories and files discovered, I first prioritized those returning '<strong>200</strong>'
             status codes for investigation. While I'll walk through my successful approach below, I encourage you to
             explore the other findings - there are often multiple paths to compromise a system!</p>
@@ -319,7 +319,7 @@ Finished
         </ol>
 
         <pre><code class="language-shell">
-            ➥ $ hydra -l Elliot -P short.txt 10.10.56.24 http-post-form &quot;/wp-login.php:log=^USER^&amp;pwd=^PASS^:F=The password you entered for the username&quot;
+            ➥ $ hydra -l Elliot -P short_list.txt 10.10.56.24 http-post-form &quot;/wp-login.php:log=^USER^&amp;pwd=^PASS^:F=The password you entered for the username&quot;
 
             Hydra v9.5 (c) 2023 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
@@ -346,7 +346,7 @@ Finished
         <p>Logged in with correct credentials from the last steps - </p>
         <img alt="Mr Robot pic9" src="../../../assets/images/thmImages/thm-mrrobot-pic9.png" />
         
-        <p>From Dashboard, I can see this message "WordPress 4.3.1 running href="http://10.10.192.234/wp-admin/themes.php" Twenty Fifteen theme". I have checked the
+        <p>From Dashboard, I can see this message "WordPress 4.3.1 running Twenty Fifteen theme". I have checked the
             <strong>Appearance</strong> &gt; <strong>Themes</strong> , and it reveals the same.</p>
         
         <img alt="Mr Robot pic10" src="../../../assets/images/thmImages/thm-mrrobot-pic10.png" />
@@ -374,7 +374,7 @@ Finished
         <p>Finally, we got a shell -</p>
         <img alt="Mr Robot pic12" src="../../../assets/images/thmImages/thm-mrrobot-pic12.png" />
 
-        <h2>Initial Access</h2>
+        <h2>⚝ Initial Access</h2>
         <p>Next, I checked the <strong>/home</strong> directory and got <strong>robot and ubuntu</strong> users home directory.
             Inside <strong>/home/robot</strong> , I got two files to inspect <strong>(check the output below)</strong>. For,
             <strong>key-2-of-3.txt</strong> file, only the file owner (<strong>robot</strong>) can read it. But, for
@@ -397,7 +397,7 @@ Finished
             <li>Finally, <strong>whoami</strong> - verify the username and read the content from key 2 file <strong>(second flag)</strong>.</li>
         </ul>
 
-        <h2>Privilege Escalation</h2>
+        <h2>⚝ Privilege Escalation</h2>
 
         <p>To access the third key file located in <strong>/root</strong> (the root user's home directory), we need to
             escalate our privileges from the 'robot' user to 'root'.
