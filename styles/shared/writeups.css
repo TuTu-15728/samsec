@@ -4,6 +4,36 @@
 }
 
 #main{
-    margin-top: 65px;
+    margin: 60px auto 0 auto;
     max-width: 1200px;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    /* border: solid red; */
 }
+
+#main h1{
+    text-align: center;
+}
+
+.mrrobotpic0 {
+    width: 25%;
+    height: auto;
+    align-self: center;
+}
+.mrrobotpic0 img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#roomLink{
+    text-align: center;
+    color: blue;
+    font-weight: bold;
+}
+
+
+
+
