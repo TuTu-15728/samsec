@@ -7,7 +7,7 @@
     <title>TryHackMe | Mr Robot</title>
     <link rel="stylesheet" href="../../../styles/base.css">
     <link rel="stylesheet" href="../../../styles/shared/header.css">
-    <link rel="stylesheet" href="../../../styles/shared/writeups.css">
+    <link rel="stylesheet" href="../../../styles/shared/thmLabs.css">
     <link rel="icon" href="../../../favicon.ico" type="image/x-icon">
 
 </head>
@@ -57,32 +57,32 @@
         <h2>Reconnaissance</h2>
         <p><strong>Nmap Scan Results : -</strong> </p>
         <p>First, I started with a basic nmap scan - </p>
-        <pre><code class="language-shell">
-            ➥ $ nmap -sCV 10.10.56.24
+        <pre><code class="shell">
+➥ $ nmap -sCV 10.10.56.24
 
-            Nmap scan report for 10.10.56.24
-            Host is up (0.016s latency).
-            Not shown: 997 filtered tcp ports (no-response)
-            PORT    STATE SERVICE  VERSION
-            22/tcp  open  ssh      OpenSSH 8.2p1 Ubuntu 4ubuntu0.13 (Ubuntu Linux; protocol 2.0)
-            | ssh-hostkey: 
-            |   3072 84:99:90:ef:f2:b0:51:3f:2a:d5:d9:51:11:e4:c7:5d (RSA)
-            |   256 0d:3b:5e:ca:86:06:7d:40:82:f5:d2:be:7b:8f:24:d4 (ECDSA)
-            |_  256 75:5a:b0:ef:43:4f:17:52:9e:da:f5:53:73:ee:25:2e (ED25519)
-            80/tcp  open  http     Apache httpd
-            |_http-server-header: Apache
-            |_http-title: Site doesn't have a title (text/html).
-            443/tcp open  ssl/http Apache httpd
-            | ssl-cert: Subject: commonName=www.example.com
-            | Not valid before: 2015-09-16T10:45:03
-            |_Not valid after:  2025-09-13T10:45:03
-            |_ssl-date: TLS randomness does not represent time
-            |_http-server-header: Apache
-            |_http-title: Site doesn't have a title (text/html).
-            Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+Nmap scan report for 10.10.56.24
+Host is up (0.016s latency).
+Not shown: 997 filtered tcp ports (no-response)
+PORT    STATE SERVICE  VERSION
+22/tcp  open  ssh      OpenSSH 8.2p1 Ubuntu 4ubuntu0.13 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 84:99:90:ef:f2:b0:51:3f:2a:d5:d9:51:11:e4:c7:5d (RSA)
+|   256 0d:3b:5e:ca:86:06:7d:40:82:f5:d2:be:7b:8f:24:d4 (ECDSA)
+|_  256 75:5a:b0:ef:43:4f:17:52:9e:da:f5:53:73:ee:25:2e (ED25519)
+80/tcp  open  http     Apache httpd
+|_http-server-header: Apache
+|_http-title: Site doesn't have a title (text/html).
+443/tcp open  ssl/http Apache httpd
+| ssl-cert: Subject: commonName=www.example.com
+| Not valid before: 2015-09-16T10:45:03
+|_Not valid after:  2025-09-13T10:45:03
+|_ssl-date: TLS randomness does not represent time
+|_http-server-header: Apache
+|_http-title: Site doesn't have a title (text/html).
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
-            Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-            Nmap done: 1 IP address (1 host up) scanned in 23.22 seconds
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 23.22 seconds
         </code></pre>
 
         <p><strong>𖤐 Command Explanation -</strong></p>
@@ -106,62 +106,62 @@
             further investigation.</p>
 
         <p><strong>gobuster Scan Results : -</strong> </p>
-        <pre><code class="language-shell">
-            ➥ $ gobuster dir -u http://10.10.56.24 -w /usr/share/wordlists/seclists/Discovery/Web-Content/common.txt -s 200,301 -b &quot;&quot;
-            ===============================================================
-            Gobuster v3.8.2
-            by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart)
-            ===============================================================
-            [+] Url:            http://10.10.56.24
-            [+] Method:         GET
-            [+] Threads:        10
-            [+] Wordlist:       /usr/share/wordlists/seclists/Discovery/Web-Content/common.txt
-            [+] Status codes:   200,301
-            [+] User Agent:     gobuster/3.8.2
-            [+] Timeout:        10s
-            ===============================================================
-            Starting gobuster in directory enumeration mode
-            ===============================================================
-            0                    (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/0/]
-            Image                (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/Image/]
-            admin                (Status: 301) [Size: 234] [--&gt; http://10.10.56.24/admin/]
-            atom                 (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/feed/atom/]
-            audio                (Status: 301) [Size: 234] [--&gt; http://10.10.56.24/audio/]
-            blog                 (Status: 301) [Size: 233] [--&gt; http://10.10.56.24/blog/]
-            css                  (Status: 301) [Size: 232] [--&gt; http://10.10.56.24/css/]
-            favicon.ico          (Status: 200) [Size: 0]
-            feed                 (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/feed/]
-            images               (Status: 301) [Size: 235] [--&gt; http://10.10.56.24/images/]
-            image                (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/image/]
-            index.html           (Status: 200) [Size: 1188]
-            index.php            (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/]
-            intro                (Status: 200) [Size: 516314]
-            js                   (Status: 301) [Size: 231] [--&gt; http://10.10.56.24/js/]
-            license              (Status: 200) [Size: 309]
-            page1                (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/]
-            rdf                  (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/feed/rdf/]
-            readme               (Status: 200) [Size: 64]
-            render/https://www.google.com (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/render/https:/www.google.com]
-            render?url=https://www.google.com (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/render%3Furl=https:/www.google.com]
-            robots               (Status: 200) [Size: 41]
-            robots.txt           (Status: 200) [Size: 41]
-            rss                  (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/feed/]
-            rss2                 (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/feed/]
-            sitemap              (Status: 200) [Size: 0]
-            sitemap.xml          (Status: 200) [Size: 0]
-            video                (Status: 301) [Size: 234] [--&gt; http://10.10.56.24/video/]
-            wp-admin             (Status: 301) [Size: 237] [--&gt; http://10.10.56.24/wp-admin/]
-            wp-content           (Status: 301) [Size: 239] [--&gt; http://10.10.56.24/wp-content/]
-            wp-config            (Status: 200) [Size: 0]
-            wp-includes          (Status: 301) [Size: 240] [--&gt; http://10.10.56.24/wp-includes/]
-            wp-cron              (Status: 200) [Size: 0]
-            wp-load              (Status: 200) [Size: 0]
-            wp-login             (Status: 200) [Size: 2664]
-            wp-links-opml        (Status: 200) [Size: 227]
-            Progress: 4750 / 4750 (100.00%)
-            ===============================================================
-            Finished
-            ===============================================================
+        <pre><code class="shell">
+➥ $ gobuster dir -u http://10.10.56.24 -w /usr/share/wordlists/seclists/Discovery/Web-Content/common.txt -s 200,301 -b &quot;&quot;
+===============================================================
+Gobuster v3.8.2
+by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:            http://10.10.56.24
+[+] Method:         GET
+[+] Threads:        10
+[+] Wordlist:       /usr/share/wordlists/seclists/Discovery/Web-Content/common.txt
+[+] Status codes:   200,301
+[+] User Agent:     gobuster/3.8.2
+[+] Timeout:        10s
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+0                    (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/0/]
+Image                (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/Image/]
+admin                (Status: 301) [Size: 234] [--&gt; http://10.10.56.24/admin/]
+atom                 (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/feed/atom/]
+audio                (Status: 301) [Size: 234] [--&gt; http://10.10.56.24/audio/]
+blog                 (Status: 301) [Size: 233] [--&gt; http://10.10.56.24/blog/]
+css                  (Status: 301) [Size: 232] [--&gt; http://10.10.56.24/css/]
+favicon.ico          (Status: 200) [Size: 0]
+feed                 (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/feed/]
+images               (Status: 301) [Size: 235] [--&gt; http://10.10.56.24/images/]
+image                (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/image/]
+index.html           (Status: 200) [Size: 1188]
+index.php            (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/]
+intro                (Status: 200) [Size: 516314]
+js                   (Status: 301) [Size: 231] [--&gt; http://10.10.56.24/js/]
+license              (Status: 200) [Size: 309]
+page1                (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/]
+rdf                  (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/feed/rdf/]
+readme               (Status: 200) [Size: 64]
+render/https://www.google.com (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/render/https:/www.google.com]
+render?url=https://www.google.com (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/render%3Furl=https:/www.google.com]
+robots               (Status: 200) [Size: 41]
+robots.txt           (Status: 200) [Size: 41]
+rss                  (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/feed/]
+rss2                 (Status: 301) [Size: 0] [--&gt; http://10.10.56.24/feed/]
+sitemap              (Status: 200) [Size: 0]
+sitemap.xml          (Status: 200) [Size: 0]
+video                (Status: 301) [Size: 234] [--&gt; http://10.10.56.24/video/]
+wp-admin             (Status: 301) [Size: 237] [--&gt; http://10.10.56.24/wp-admin/]
+wp-content           (Status: 301) [Size: 239] [--&gt; http://10.10.56.24/wp-content/]
+wp-config            (Status: 200) [Size: 0]
+wp-includes          (Status: 301) [Size: 240] [--&gt; http://10.10.56.24/wp-includes/]
+wp-cron              (Status: 200) [Size: 0]
+wp-load              (Status: 200) [Size: 0]
+wp-login             (Status: 200) [Size: 2664]
+wp-links-opml        (Status: 200) [Size: 227]
+Progress: 4750 / 4750 (100.00%)
+===============================================================
+Finished
+===============================================================
         </code></pre>
 
         <p>Well, it's a very long list although I have filtered the search results. Let's understand the above step -
@@ -259,7 +259,7 @@
 
         <img alt="Mr Robot pic5" src="../../../assets/images/thmImages/thm-mrrobot-pic5.png" />
 
-        <p>From <strong>burpsuite</strong> , we can verify it -
+        <p>From <strong>burpsuite</strong> , we can verify it -</p>
             <img alt="Mr Robot pic6" src="../../../assets/images/thmImages/thm-mrrobot-pic6.png" />
 
         <p>Let's focus on the '<strong>Request</strong>' section -</p>
