@@ -37,4 +37,4 @@ Right Side (Impact -> Process -> Tools):
     3. Snippets: Finally, Snippets are the useful tools and code blocks that others can use. It's a fantastic resource, but it has the most niche appeal, making it perfect for the last spot. 
 
 # Symbols - 
-    ⚝  
+    ⚝  🕮 
